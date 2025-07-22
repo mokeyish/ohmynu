@@ -1,0 +1,12 @@
+#!/bin/sh
+
+
+
+case ":${PATH}:" in
+    *:"$HOME/.ohmynu/bin":*)
+        ;;
+    *)
+        # Prepending path in case a system-installed rustc needs to be overridden
+        export PATH="$HOME/.ohmynu/bin:$PATH"
+        ;;
+esac
