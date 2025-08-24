@@ -1,12 +1,19 @@
 #!/bin/sh
 
+add_to_path_if_missing() {
+    case ":$PATH:" in
+        *:"$1":*)
+            ;;
+        *)
+            export PATH="$1:$PATH"
+            ;;
+    esac
+}
 
+add_to_path_if_missing "/usr/local/bin"
 
-case ":${PATH}:" in
-    *:"$HOME/.ohmynu/bin":*)
-        ;;
-    *)
-        # Prepending path in case a system-installed rustc needs to be overridden
-        export PATH="$HOME/.ohmynu/bin:$PATH"
-        ;;
-esac
+if [ -d "$HOME/.local/bin" ]; then
+    add_to_path_if_missing "$HOME/.local/bin"
+fi
+
+add_to_path_if_missing "$HOME/.ohmynu/bin"
